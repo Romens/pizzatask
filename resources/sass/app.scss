@@ -1,0 +1,14 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@import './lib/nprogress';
+
+@import './_variables';
+@import './components/authnav';
+
+input:invalid {
+    box-shadow: none;
+}
