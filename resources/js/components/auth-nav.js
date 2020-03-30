@@ -18,6 +18,11 @@ function AuthNav () {
     setIntendedUrl(null);
   };
 
+  const switchCurrency = () => {
+
+    window.localStorage.setItem('currency', )
+  };
+
   return (
     <div className="auth-nav flex flex-row h-16 border-b border-grey-light">
       <div className="container flex-col lg:flex-row px-2 mx-auto flex items-center justify-between">
@@ -25,9 +30,10 @@ function AuthNav () {
           <ul className="list-reset flex items-center">
             <li>
               <NavLink
-                to="/home"
+                to="/"
                 activeClassName="font-bold"
-                className="text-gray-800 no-underline text-indigo">Laravel React SPA
+                className="text-gray-800 no-underline text-indigo">
+                Pizza Task
               </NavLink>
             </li>
           </ul>
@@ -54,48 +60,7 @@ function AuthNav () {
             <li
               onClick={closeMobileNav}
               className="px-4 py-3 lg:py-0">
-              <NavLink
-                to='/home'
-                className="capitalize text-2xl font-bold lg:text-sm lg:font-light text-gray-700 underline lg:no-underline">
-                  Home
-              </NavLink>
-            </li>
-            <li
-              onClick={closeMobileNav}
-              className="px-4 py-3 lg:py-0">
-              <NavLink
-                to='/home'
-                className="capitalize text-2xl font-bold lg:text-sm lg:font-light text-gray-700 underline lg:no-underline">
-                  Messages
-              </NavLink>
-            </li>
 
-            <li
-              onClick={closeMobileNav}
-              className="px-4 py-3 lg:py-0">
-              <NavLink
-                to='/home'
-                className="capitalize text-2xl font-bold lg:text-sm lg:font-light text-gray-700 underline lg:no-underline">
-                  Notifications
-              </NavLink>
-            </li>
-
-            <li
-              onClick={closeMobileNav}
-              className="px-4 py-3 lg:py-0">
-              <NavLink
-                to={`/profile/${currentUser.id}`}
-                className="text-2xl font-bold lg:text-sm lg:font-light capitalize text-sm text-gray-700 underline lg:no-underline">
-                {currentUser.name}
-              </NavLink>
-            </li>
-            <li
-              onClick={handleLogout}
-              className="px-4 py-3 lg:py-0">
-              <Link
-                to="/logout"
-                className="capitalize text-2xl font-bold lg:text-sm lg:font-light text-gray-700 underline lg:no-underline">
-                  Logout</Link>
             </li>
           </ul>
         </div>

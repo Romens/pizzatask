@@ -36,6 +36,10 @@
         "whatwg-fetch": "^3.0.0"
     },
     "dependencies": {
-        "laravel-mix-tailwind": "^0.1.0"
+        "bootstrap": "^4.4.1",
+        "jquery": "^3.4.1",
+        "laravel-mix-tailwind": "^0.1.0",
+        "popper.js": "^1.16.1",
+        "redux": "^4.0.5"
     }
 }

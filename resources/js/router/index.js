@@ -26,7 +26,6 @@ function App () {
             <GuestRoute path="/login" component={Login} title="login"/>
             <GuestRoute path="/forgot-password" component={ForgotPassword} title="forgot password"/>
             <GuestRoute path="/password/reset/:token" component={ResetPassword} title="reset password"/>
-            <AuthRoute path="/home" component={Home} title="home"/>
             <AuthRoute path="/profile/:id" component={Profile} title="profile"/>
             <Route component={NotFound}/>
           </Switch>

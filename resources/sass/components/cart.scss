@@ -1,0 +1,17 @@
+
+.cart-welcome {
+  position: fixed;
+  bottom: 0;
+  display: block;
+  right: 0;
+  left: 0;
+  background-color: $secondary-hover;
+  width: 100vw;
+  z-index: 1;
+  min-height: 80px;
+  max-height: 20vh;
+}
+
+.cart-welcome.hidden {
+  display: none;
+}

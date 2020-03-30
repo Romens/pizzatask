@@ -13,6 +13,11 @@
 */
 
 Route::name('api.')->namespace('Api')->group(function () {
+
+    Route::group(['prefix' => 'v1'], function () {
+        include 'api/v1/api.php';
+    });
+
     // Unprotected routes
     Route::group(['middleware' => 'guest:api'], function () {
         Route::namespace('Auth')->group(function () {

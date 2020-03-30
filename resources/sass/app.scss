@@ -4,11 +4,28 @@
 
 @tailwind utilities;
 
+@import "~bootstrap/scss/bootstrap";
 @import './lib/nprogress';
 
 @import './_variables';
 @import './components/authnav';
+@import './components/pizza';
+@import './components/cart';
 
 input:invalid {
     box-shadow: none;
+}
+
+.btn-special {
+    background-color: $secondary;
+    color: white;
+}
+
+.btn-special:hover {
+    background-color: $secondary-hover;
+    color: white;
+}
+
+body {
+    font-size: 16px;
 }
