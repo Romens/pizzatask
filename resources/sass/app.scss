@@ -12,6 +12,8 @@
 @import './components/pizza';
 @import './components/cart';
 
+@import './pages/create-order';
+
 input:invalid {
     box-shadow: none;
 }

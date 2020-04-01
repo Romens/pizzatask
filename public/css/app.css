@@ -24638,20 +24638,70 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .cart-welcome {
-  position: fixed;
   bottom: 0;
   display: block;
   right: 0;
   left: 0;
+  color: white;
   background-color: #6900A4;
-  width: 100vw;
   z-index: 1;
-  min-height: 80px;
-  max-height: 20vh;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
 }
 
-.cart-welcome.hidden {
+.cart-welcome .price-area {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.cart .price-area {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.cart .pizza-item .remove {
+  color: white;
+  float: right;
+}
+
+.cart .pizza-item .count {
+  padding: 5px;
+  line-height: 5px;
+  border-radius: 50%;
+  color: #2f2f2f;
+  background-color: white;
+}
+
+.empty-pizzas {
+  padding: 1rem;
+  color: #6900A4;
+  background-color: white;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.cart-welcome .cart-area {
   display: none;
+}
+
+.cart-welcome .icon-area {
+  display: block;
+}
+
+.remove-btn {
+  cursor: pointer;
+  line-height: 1rem;
+}
+
+@media (min-width: 576px) {
+  .cart-welcome .cart-area {
+    display: block;
+  }
+
+  .cart-welcome .icon-area {
+    display: none;
+  }
 }
 
 input:invalid {

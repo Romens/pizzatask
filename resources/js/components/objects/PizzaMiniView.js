@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import CrustSelect from './CrustSelect';
 import SizeSelect from './SizeSelect';
-import Cart from '../Cart';
+import store from '../../reducers/store';
 
 class PizzaMiniView extends Component {
-
   constructor (props) {
     super(props);
 
@@ -13,7 +12,14 @@ class PizzaMiniView extends Component {
     this.state = {
       pizza: props.pizza,
       variant: variant,
+      currency: store.getState().currency,
     };
+
+    this.unsubscribe = store.subscribe(() => {
+      this.setState({
+        currency: store.getState().currency
+      });
+    });
 
     this.setCrust = this.setCrust.bind(this);
     this.setSize = this.setSize.bind(this);
@@ -26,6 +32,10 @@ class PizzaMiniView extends Component {
       return pizza.variants.filter(item => { return parseInt(key) === item.id; })[0];
     }
     return pizza.variants[0];
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe();
   }
 
   setCrust (crustId) {
@@ -41,9 +51,19 @@ class PizzaMiniView extends Component {
     );
   }
 
+  changeCurrency () {
+    store.dispatch({
+      type: 'CHANGE_CURRENCY'
+    });
+  }
+
   addToCart () {
-    Cart.addToCart(this.state.variant, this.state.pizza);
-    this.props.update();
+    let variant = this.state.variant;
+    variant.pizza = this.state.pizza;
+    store.dispatch({
+      type: 'ADD_TO_CART',
+      payload: variant
+    });
   }
 
   updateVariant (crustId, sizeId) {
@@ -74,7 +94,7 @@ class PizzaMiniView extends Component {
       <span key={item.id}>{item.title}</span>
     );
 
-    const price = this.state.variant.prices[this.props.currency];
+    const price = this.state.variant.prices[store.getState().currency];
 
     return (
       <div className='col'>
@@ -89,8 +109,8 @@ class PizzaMiniView extends Component {
             <SizeSelect action={this.setSize} value={this.state.variant.size_id} sizes={this.state.pizza.sizes}/>
           </div>
           <div className='card-footer footer'>
-            <div className='price' onClick={this.props.action}>
-              <div>{price.value} {price.symbol}</div>
+            <div className='price' onClick={this.changeCurrency}>
+                <div>{price.value} {price.symbol}</div>
             </div>
             <button onClick={this.addToCart} className='btn btn-special to-cart'>
                 Add to cart

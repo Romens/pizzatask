@@ -1,17 +1,86 @@
 
 .cart-welcome {
-  position: fixed;
   bottom: 0;
   display: block;
   right: 0;
   left: 0;
+  color: white;
   background-color: $secondary-hover;
-  width: 100vw;
   z-index: 1;
-  min-height: 80px;
-  max-height: 20vh;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+
+  .price-area {
+    padding: 0.5rem;
+    text-align: center;
+  }
+
 }
 
-.cart-welcome.hidden {
+.cart {
+
+
+  .price-area {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+
+
+  .pizza-item {
+    .remove {
+      color: white;
+      float: right;
+    }
+    .count {
+      padding: 5px;
+      line-height: 5px;
+      border-radius: 50%;
+      color: $black;
+      background-color: white;
+    }
+  }
+}
+
+.empty-pizzas {
+  padding: 1rem;
+  color: $secondary-hover;
+  background-color: white;
+  border-radius: 0.5rem;
+  text-align: center;
+}
+
+.cart-welcome .cart-area {
   display: none;
+}
+.cart-welcome .icon-area {
+  display: block;
+}
+
+
+.remove-btn {
+  cursor: pointer;
+  line-height: 1rem;
+}
+
+@include media-breakpoint-up(sm) {
+  .cart-welcome .cart-area {
+    display: block;
+  }
+
+  .cart-welcome .icon-area {
+    display: none;
+  }
+}
+@include media-breakpoint-up(md) {
+
+}
+@include media-breakpoint-up(lg) {
+
+
+
+}
+@include media-breakpoint-up(xl) {
+
 }

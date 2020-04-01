@@ -1,44 +1,61 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Cart from './Cart';
 
 class CartWelcome extends Cart {
   renderItem (item) {
     return (
-      <div key={item.id}>{item.pizza.title}</div>
+      <div key={item.id} className="media pizza-item">
+        <div className="media-body">
+          <span className='remove' onClick={() => { this.removeVariant(item.id) }}>X</span>
+          <h6 className="m-0">{item.count || 1} x {item.pizza.title}</h6>
+          <small className="m-0">{this.state.crusts[item.crust_id].title} crust, {this.state.sizes[item.size_id].title} cm for {this.state.sizes[item.size_id].persons} persons</small>
+        </div>
+      </div>
     );
   }
 
   render () {
+    const pizzas = this.state.cart.map(this.renderItem);
 
-    const pizzas = this.state.items.map(this.renderItem);
+    let price = this.calcPrice();
+    let counter = 0;
 
-    let price = 0;
+    const emptyPizzas = (
+      <div className='empty-pizzas'>
+          Add pizza to cart!!!
+      </div>
+    );
 
-      this.state.items.forEach(item => {
-        price += item.prices[this.state.currency];
-      });
+    this.state.cart.forEach(item => {
+      counter += item.count || 1;
+    });
+
+    const linkToOrder = (
+      <NavLink
+        to="/create-order"
+        activeClassName="active"
+        className="btn btn-block btn-light">
+            Order Now!
+      </NavLink>
+    );
 
     return (
-      <div className='cart cart-welcome'>
-        <div className='row'>
-          <div className='col-12 col-md-8'>
+      <div className={'cart cart-welcome mode-' + this.state.mode}>
+        <div className='icon-area'>{counter}</div>
+        <div className='row cart-area'>
+          <div className='col-12'>
             <div className='pizza-area'>
-              {pizzas}
+              {pizzas.length === 0 ? emptyPizzas : pizzas}
             </div>
           </div>
-          <div className='col-12 col-md-4'>
+          <div className='col-12'>
             <div className='total-area row'>
-              <div className='price-area col-6'>
-                {price}
+              <div onClick={this.changeCurrency} className='price-area col-12'>
+                {price.toFixed(2)} {this.state.currencies[this.state.currency]}
               </div>
-              <div className='action-area col-6'>
-                <NavLink
-                  to="/create-order"
-                  activeClassName="font-bold"
-                  className="text-gray-800 no-underline text-indigo">
-                      Order Now!
-                </NavLink>
+              <div className='action-area col-12'>
+                {price === 0 ? '' : linkToOrder}
               </div>
             </div>
           </div>

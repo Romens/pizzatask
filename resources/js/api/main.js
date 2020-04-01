@@ -6,3 +6,10 @@ export const pizzasList = () => {
       return pizzas;
     });
 };
+
+export const createOrder = (order) => {
+    return client('/api/v1/orders', { body: order })
+        .then(result => {
+            return result;
+        });
+};

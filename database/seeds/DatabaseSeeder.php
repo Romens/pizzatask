@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PizzasSeeder::class);
         $this->call(PizzaVariantsSeeder::class);
         $this->call(CurrenciesSeeder::class);
+        $this->call(PaymentTypesSeeder::class);
 
     }
 }

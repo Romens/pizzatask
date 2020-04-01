@@ -5,26 +5,38 @@ import PizzaEmptyList from '../components/objects/PizzaEmptyList';
 import {pizzasList} from '../api/main';
 import PizzaList from '../components/objects/PizzaList';
 import CartWelcome from '../components/CartWelcome';
+import store from '../reducers/store';
 
 class Welcome extends Component {
   constructor (props) {
     super(props);
     this.state = {
       pizzas: null,
-      currency: 'EUR',
+      currency: 'USD',
       currencies: {},
       loading: false
     };
 
-    this.changeCurrency = this.changeCurrency.bind(this);
+    this.setSubcriber();
+  }
+
+  setSubcriber () {
+    this.unsubscribe = store.subscribe(() => {
+      let {pizzas, currencies, currency} = store.getState();
+      this.setState({
+        pizzas: pizzas,
+        currency: currency,
+        currencies: currencies
+      });
+    });
+  }
+
+  componentWillUnmount () {
+    this.unsubscribe();
   }
 
   componentDidMount () {
     this.getPizzasList();
-  }
-
-  update () {
-    this.setState({});
   }
 
   setInitCurrency (code) {
@@ -35,9 +47,9 @@ class Welcome extends Component {
         code = userCurrency;
       }
     }
-    window.localStorage.setItem('currency', code);
-    this.setState({
-      currency: code,
+    store.dispatch({
+      type: 'SET_CURRENCY',
+      payload: code
     });
   }
 
@@ -48,12 +60,35 @@ class Welcome extends Component {
 
     pizzasList()
       .then(result => {
-        this.setState({
-          pizzas: result.pizzas,
-          currencies: result.currencies
+        store.dispatch({
+          type: 'SET_CURRENCIES',
+          payload: result.currencies
+        });
+        store.dispatch({
+          type: 'SET_PAYMENT_TYPES',
+          payload: result.payment_types
+        });
+        store.dispatch({
+          type: 'SET_CURRENCY',
+          payload: result.default_currency
+        });
+        store.dispatch({
+          type: 'SET_CRUSTS',
+          payload: result.crusts
+        });
+        store.dispatch({
+          type: 'SET_SIZES',
+          payload: result.sizes
+        });
+        store.dispatch({
+          type: 'SET_PIZZAS',
+          payload: result.pizzas
         });
 
-        window.localStorage.setItem('currencies', JSON.stringify(result.currencies));
+        store.dispatch({
+            type: 'RESTORE_CART',
+        });
+
         this.setInitCurrency(result.default_currency);
       })
       .catch(error => {
@@ -66,24 +101,10 @@ class Welcome extends Component {
       });
   };
 
-  changeCurrency () {
-    let keys = Object.keys(this.state.currencies);
-    let nextIndex = keys.indexOf(this.state.currency) + 1;
-    let nextItem = keys[nextIndex] ? keys[nextIndex] : keys[0];
-    this.setState({
-      currency: nextItem,
-    });
-    window.localStorage.setItem('currency', nextItem);
-  }
-
   render () {
     const pizzaList = this.state.pizzas
-        ? <PizzaList action={this.changeCurrency}
-                     update={this.update}
-                     currencies={this.state.currencies}
-                     currency={this.state.currency}
-                     list={this.state.pizzas} />
-        : <PizzaEmptyList/>;
+      ? <PizzaList list={this.state.pizzas} />
+      : <PizzaEmptyList/>;
 
     const loader = <FullPageSpinner/>;
 
@@ -91,13 +112,16 @@ class Welcome extends Component {
       <div className="flex flex-col min-h-screen">
         <AuthNav />
         <div className="container">
-          <div className="pizza_list">
-            {this.state.loading ? loader : pizzaList}
+          <div className='row'>
+            <div className='col-12 col-md-9'>
+              <div className="pizza_list">
+                {this.state.loading ? loader : pizzaList}
+              </div>
+            </div>
+            <div className='col-12 col-md-3'>
+              <CartWelcome />
+            </div>
           </div>
-          <CartWelcome
-            changeCurrency={this.changeCurrency}
-            currencies={this.state.currencies}
-            currency={this.state.currency}/>
         </div>
       </div>
     );
