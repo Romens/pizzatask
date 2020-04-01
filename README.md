@@ -1,17 +1,24 @@
-# Laravel-React SPA
+# PizzaTask
 
-Starter Boilerplate SPA made with Laravel and React.
+PizzaTask - web application for ordering pizza
 
-## Features
+My first web application on React.JS
 
-- Laravel 7, React, React Router
-- React Hook, React Context for state management
-- Authentication with JWT
-- Login, register, reset password
-- Flexible Page Layout
-- Flexible, Protected Routing
-- Tailwind CSS
-- ESlint
+Using Laravel-React SPA
+
+Demo: https://pizzatask.herokuapp.com/
+
+Links:
+
+Template -  https://github.com/zaichaopan/laravel-react-spa
+MySQL Hosting - https://remotemysql.com/
+Cloud Hosting - https://heroku.com/
+
+## Instalation on Heroku
+
+https://devcenter.heroku.com/articles/getting-started-with-laravel
+
+## Run local
 
 ## Installation
 
@@ -29,10 +36,11 @@ composer install && npm install
 php artisan key:generate
 ```
 
+- Config database in .env
 - Run database migration
 
 ```bash
-php artisan migrate:fresh
+php artisan migrate:fresh --seed
 ```
 
 - Generate JWT secret
